@@ -1,0 +1,98 @@
+[
+  {
+    "title": "Семейный",
+    "desc": "Большой номер с одной двухспальной кроватью и раздвижным диваном",
+    "number": "№ 17",
+    "count": "1",
+    "price": "6500 руб/сутки",
+	"images": [
+    "/wp-content/plugins/hotel-rooms/assets/photos/Семейный-4.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Семейный-5.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Семейный-8.webp"
+  ]
+  },
+  {
+    "title": "Люкс",
+    "desc": "Двухкомнатный номер с двухспальной кроватью и раскладным диваном",
+    "number": "№ 7",
+    "count": "1",
+    "price": "5000 руб/сутки",
+	"images": [
+    "/wp-content/plugins/hotel-rooms/assets/photos/Люкс-2.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Люкс-4.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Люкс-5.webp"
+  ]
+  },
+  {
+    "title": "Улучшенный полулюкс",
+    "desc": "Двухспальная кровать, балкон",
+    "number": "№ 6",
+    "count": "1",
+    "price": "4300 руб/сутки",
+	"images": [
+    "/wp-content/plugins/hotel-rooms/assets/photos/Улучшенный полулюкс-2.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Улучшенный полулюкс-3.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Улучшенный полулюкс-4.webp"
+  ]
+  },
+  {
+    "title": "Комфорт двухместный",
+    "desc": "Кровать 1,6 м",
+    "number": "№ 10",
+    "count": "1",
+    "price": "4000 руб/сутки",
+	"images": [
+    "/wp-content/plugins/hotel-rooms/assets/photos/Комфорт двухместный-2.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Комфорт двухместный-3.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Комфорт двухместный-4webp"
+  ]
+  },
+  {
+    "title": "Комфорт одноместный",
+    "desc": "Односпальная кровать и раздвижное кресло",
+    "number": "№ 11",
+    "count": "1",
+    "price": "3500 руб/сутки",
+	"images": [
+    "/wp-content/plugins/hotel-rooms/assets/photos/Комфорт одноместный-2.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Комфорт одноместный-4.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Комфорт одноместный-3.webp"
+  ]
+  },
+  {
+    "title": "Стандарт двухместный",
+    "desc": "Две раздельные односпальные кровати",
+    "number": "№ 12, 16",
+    "count": "2",
+    "price": "3500 руб/сутки",
+	"images": [
+    "/wp-content/plugins/hotel-rooms/assets/photos/Стандарт двухместный-3.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Стандарт двухместный-4.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Стандарт двухместный-3.webp"
+  ]
+  },
+  {
+    "title": "Улучшенный стандарт",
+    "desc": "Кровать 1,3 м",
+    "number": "№ 4, 5, 9, 13, 14",
+    "count": "5",
+    "price": "3200 руб/сутки",
+	"images": [
+    "/wp-content/plugins/hotel-rooms/assets/photos/Улучшенный стандарт-3.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Улучшенный стандарт-4.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Улучшенный стандарт-5.webp"
+  ]
+  },
+  {
+    "title": "Стандарт (одноместный)",
+    "desc": "Односпальная кровать, 1 м",
+    "number": "№ 1, 2, 3, 8, 15",
+    "count": "5",
+    "price": "2700 руб/сутки",
+	"images": [
+    "/wp-content/plugins/hotel-rooms/assets/photos/Стандарт-2.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Стандарт-3.webp",
+    "/wp-content/plugins/hotel-rooms/assets/photos/Стандарт-4.webp"
+  ]
+  }
+]
