@@ -202,3 +202,24 @@
 .room-card .thumb:hover {
     border-color: #0073aa;
 }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+.gallery-thumbs {
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+}
+/* Скроллбар в попапе */
+.lightbox-thumbs::-webkit-scrollbar {
+    height: 6px;
+}
+.lightbox-thumbs::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}

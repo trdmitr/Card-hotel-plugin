@@ -71,7 +71,7 @@ function renderCarousel(data) {
 
             galleryHtml = `
                 <div class="room-gallery">
-                    <img src="${firstImage}" alt="${escapeHtml(room.title)}" class="gallery-main">
+                    <img src="${firstImage}" alt="${escapeHtml(room.title)}" loading="lazy" class="gallery-main">
                     ${otherImages.length > 0 ? `
                     <div class="gallery-thumbs">
                         ${otherImages.map((img, idx) => `
@@ -103,7 +103,152 @@ function renderCarousel(data) {
         dots.appendChild(dot);
     });
 }
+function initGallerySwipe() {
+    setTimeout(() => {
+        const thumbsList = document.querySelectorAll('.gallery-thumbs');
+        console.log('🔄 initGallerySwipe: найдено .gallery-thumbs:', thumbsList.length);
 
+        thumbsList.forEach(thumbs => {
+            let startX = 0;
+            let startY = 0;
+            let scrollLeft = 0;
+
+            if (!thumbs || !thumbs.addEventListener) return;
+
+            thumbs.addEventListener('touchstart', e => {
+                if (e.touches.length !== 1) return;
+                const touch = e.touches[0];
+                startX = touch.pageX;
+                startY = touch.pageY;
+                scrollLeft = thumbs.scrollLeft;
+                thumbs.style.scrollBehavior = 'auto';
+                // Не вызываем preventDefault здесь — дадим шанс другим жестам
+            }, { passive: true }); // ← можно вернуть passive: true
+
+            thumbs.addEventListener('touchmove', e => {
+                if (e.touches.length !== 1) return;
+                const touch = e.touches[0];
+                const dx = startX - touch.pageX;
+                const dy = startY - touch.pageY;
+
+                // Только если движение горизонтальное
+                if (Math.abs(dx) > Math.abs(dy)) {
+                    e.preventDefault(); // Блокируем скролл страницы
+                    thumbs.scrollLeft = scrollLeft + dx;
+                }
+            }, { passive: false });
+
+            thumbs.addEventListener('touchend', () => {
+                thumbs.style.scrollBehavior = 'smooth';
+            });
+        });
+    }, 100);
+}
+function initLightbox() {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', createLightboxListeners);
+    } else {
+        createLightboxListeners();
+    }
+
+    function createLightboxListeners() {
+        document.querySelectorAll('.gallery-main').forEach(img => {
+            img.style.cursor = 'pointer';
+
+            img.onclick = function (e) {
+                e.stopPropagation();
+
+                const roomCard = this.closest('.room-card') || this.closest('.carousel-item');
+                const thumbs = roomCard ? roomCard.querySelectorAll('.thumb') : [];
+
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0; left: 0;
+                    width: 100%; height: 100%;
+                    background: rgba(0, 0, 0, 0.95);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 9999;
+                    cursor: zoom-out;
+                    animation: fadeIn 0.3s ease;
+                `;
+
+                const fullImg = document.createElement('img');
+                fullImg.src = this.src;
+                fullImg.alt = this.alt || 'Фото номера';
+                fullImg.style.cssText = `
+                    max-width: 90vw;
+                    max-height: 75vh;
+                    border-radius: 12px;
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+                    object-fit: contain;
+                    margin-bottom: 10px;
+                `;
+
+                // Кнопка закрытия
+                const closeBtn = document.createElement('div');
+                closeBtn.innerHTML = '✕';
+                closeBtn.style.cssText = `
+                    position: absolute;
+                    top: 20px;
+                    right: 20px;
+                    width: 40px;
+                    height: 40px;
+                    background: #fff;
+                    color: #000;
+                    font-size: 28px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+                    z-index: 10;
+                `;
+                closeBtn.onclick = () => {
+                    modal.style.animation = 'fadeOut 0.3s ease';
+                    setTimeout(() => document.body.removeChild(modal), 300);
+                };
+
+                // Миниатюры в попапе
+                if (thumbs.length > 0) {
+                    const thumbsContainer = document.createElement('div');
+                    thumbsContainer.style.cssText = `
+                        display: flex;
+                        gap: 8px;
+                        max-width: 90vw;
+                        overflow-x: auto;
+                        padding: 10px;
+                        margin-top: 10px;
+                        scrollbar-width: thin;
+                    `;
+
+                    thumbsContainer.innerHTML = `
+                        ${Array.from(thumbs).map(thumb => `
+                            <img src="${thumb.src}" alt="${thumb.alt}" 
+                                 onclick="event.stopPropagation(); document.querySelector('.lightbox-img').src = '${thumb.src}';"
+                                 style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent;"
+                                 onmouseenter="this.style.border='2px solid #0073aa'"
+                                 onmouseleave="this.style.border='2px solid transparent'">
+                        `).join('')}
+                    `;
+
+                    // Добавим класс, чтобы можно было менять src
+                    fullImg.classList.add('lightbox-img');
+                    thumbsContainer.style.display = 'flex';
+                    modal.appendChild(thumbsContainer);
+                }
+
+                modal.appendChild(closeBtn);
+                modal.appendChild(fullImg);
+                document.body.appendChild(modal);
+            };
+        });
+    }
+}
     function changeSlide(n) {
         showSlides(roomSlideIndex += n);
     }
@@ -148,8 +293,17 @@ function renderCarousel(data) {
                 renderCarousel(data);
             }
 
-            showSlides(1);
-        })
+    showSlides(1);
+
+    // ✅ Теперь DOM обновлён — можно инициализировать
+    if (typeof initGallerySwipe === 'function') {
+        initGallerySwipe();
+    }
+
+    if (typeof initLightbox === 'function') {
+        initLightbox();
+    }
+})
         .catch(err => {
             console.error('🔴 Ошибка:', err);
             const container = document.getElementById('roomsContainer');
