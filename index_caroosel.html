@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Internal CSS Example</title>
+    <style>
+        h1 {
+            color: blue;
+            font-size: 24px;
+        }
+		.carousel {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-item {
+  display: none;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.carousel-item.active {
+  display: block;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 16px;
+  text-decoration: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  z-index: 10;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.carousel-dots {
+  text-align: center;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 15px;
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dot.active, .dot:hover {
+  background-color: #fff;
+}
+    </style>
+</head>
+<body>
+    <h1>Простая карусель</h1>
+	<!-- Простая карусель -->
+<div class="carousel" id="myCarousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://shop-cdn1-2.vigbo.tech/shops/2544/products/16486697/images/3-9f0ed407d8ba2537f38b8b2d9765ccdb.jpg" alt="Slide 1">
+    </div>
+    <div class="carousel-item">
+      <img src="https://png.pngtree.com/thumb_back/fw800/background/20230408/pngtree-woods-sunshine-forest-nature-background-image_2173232.jpg" alt="Slide 2">
+    </div>
+    <div class="carousel-item">
+      <img src="https://png.pngtree.com/background/20230401/original/pngtree-forest-morning-background-picture-image_2251636.jpg" alt="Slide 3">
+    </div>
+  </div>
+  <a class="carousel-control prev" onclick="changeSlide(-1)">&#10094;</a>
+  <a class="carousel-control next" onclick="changeSlide(1)">&#10095;</a>
+  <div class="carousel-dots">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+  </div>
+</div>
+ <script defer>
+let slideIndex = 1;
+
+// Инициализация при загрузке
+document.addEventListener("DOMContentLoaded", function () {
+  showSlides(slideIndex);
+});
+
+function changeSlide(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  const slides = document.querySelectorAll(".carousel-item");
+  const dots = document.querySelectorAll(".dot");
+
+  if (n > slides.length) slideIndex = 1;
+  if (n < 1) slideIndex = slides.length;
+
+  // Скрыть все слайды
+  slides.forEach(slide => slide.classList.remove("active"));
+  dots.forEach(dot => dot.classList.remove("active"));
+
+  // Показать текущий слайд
+  slides[slideIndex - 1].classList.add("active");
+  dots[slideIndex - 1].classList.add("active");
+}
+  </script>	
+</body>
+</html>
+

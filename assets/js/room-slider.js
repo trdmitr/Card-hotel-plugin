@@ -27,8 +27,8 @@ function renderGrid(data) {
             galleryHtml = `
                 <div class="room-gallery">
                     <!-- Основное фото -->
-                    <img src="${firstImage}" alt="${escapeHtml(room.title)}" class="gallery-main">
-
+                    <img src="${firstImage}" alt="${escapeHtml(room.title)}" loading="lazy" class="gallery-main">
+                    <div class="zoom-overlay">🔍</div>
                     <!-- Миниатюры (если есть) -->
                     ${otherImages.length > 0 ? `
                     <div class="gallery-thumbs">
@@ -75,7 +75,7 @@ function renderCarousel(data) {
                     ${otherImages.length > 0 ? `
                     <div class="gallery-thumbs">
                         ${otherImages.map((img, idx) => `
-                            <img src="${img}" alt="Фото ${idx + 2}" 
+                            <img src="${img}" alt="Фото ${idx + 2}" loading="lazy"
                                  onclick="this.parentElement.previousElementSibling.src = '${img}'"
                                  class="thumb">
                         `).join('')}
