@@ -159,7 +159,16 @@ function initLightbox() {
                 e.stopPropagation();
 
                 const roomCard = this.closest('.room-card') || this.closest('.carousel-item');
-                const thumbs = roomCard ? roomCard.querySelectorAll('.thumb') : [];
+                const thumbs = roomCard ? Array.from(roomCard.querySelectorAll('.thumb')) : [];
+                const allImages = [this, ...thumbs.map(t => ({ src: t.src, alt: t.alt }))];
+                let currentIndex = 0;
+
+                // Найдём, какое фото открыли
+                if (this.classList.contains('thumb')) {
+                    currentIndex = thumbs.indexOf(this) + 1;
+                } else {
+                    currentIndex = 0;
+                }
 
                 const modal = document.createElement('div');
                 modal.style.cssText = `
@@ -177,8 +186,8 @@ function initLightbox() {
                 `;
 
                 const fullImg = document.createElement('img');
-                fullImg.src = this.src;
-                fullImg.alt = this.alt || 'Фото номера';
+                fullImg.src = allImages[currentIndex].src;
+                fullImg.alt = allImages[currentIndex].alt || 'Фото номера';
                 fullImg.style.cssText = `
                     max-width: 90vw;
                     max-height: 75vh;
@@ -186,6 +195,18 @@ function initLightbox() {
                     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
                     object-fit: contain;
                     margin-bottom: 10px;
+                `;
+
+                // Индикатор: 1/4
+                const counter = document.createElement('div');
+                counter.textContent = `${currentIndex + 1} / ${allImages.length}`;
+                counter.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    position: absolute;
+                    top: 20px;
+                    left: 20px;
+                    z-index: 10;
                 `;
 
                 // Кнопка закрытия
@@ -213,36 +234,68 @@ function initLightbox() {
                     setTimeout(() => document.body.removeChild(modal), 300);
                 };
 
-                // Миниатюры в попапе
-                if (thumbs.length > 0) {
-                    const thumbsContainer = document.createElement('div');
-                    thumbsContainer.style.cssText = `
-                        display: flex;
-                        gap: 8px;
-                        max-width: 90vw;
-                        overflow-x: auto;
-                        padding: 10px;
-                        margin-top: 10px;
-                        scrollbar-width: thin;
-                    `;
+                // Стрелка "Назад"
+                const prevBtn = document.createElement('div');
+                prevBtn.innerHTML = '‹';
+                prevBtn.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 20px;
+                    transform: translateY(-50%);
+                    width: 50px;
+                    height: 50px;
+                    background: rgba(0, 0, 0, 0.7);
+                    color: white;
+                    font-size: 36px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    z-index: 10;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+                `;
+                prevBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+                    fullImg.src = allImages[currentIndex].src;
+                    fullImg.alt = allImages[currentIndex].alt || 'Фото номера';
+                    counter.textContent = `${currentIndex + 1} / ${allImages.length}`;
+                };
 
-                    thumbsContainer.innerHTML = `
-                        ${Array.from(thumbs).map(thumb => `
-                            <img src="${thumb.src}" alt="${thumb.alt}" 
-                                 onclick="event.stopPropagation(); document.querySelector('.lightbox-img').src = '${thumb.src}';"
-                                 style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent;"
-                                 onmouseenter="this.style.border='2px solid #0073aa'"
-                                 onmouseleave="this.style.border='2px solid transparent'">
-                        `).join('')}
-                    `;
-
-                    // Добавим класс, чтобы можно было менять src
-                    fullImg.classList.add('lightbox-img');
-                    thumbsContainer.style.display = 'flex';
-                    modal.appendChild(thumbsContainer);
-                }
+                // Стрелка "Вперёд"
+                const nextBtn = document.createElement('div');
+                nextBtn.innerHTML = '›';
+                nextBtn.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    right: 20px;
+                    transform: translateY(-50%);
+                    width: 50px;
+                    height: 50px;
+                    background: rgba(0, 0, 0, 0.7);
+                    color: white;
+                    font-size: 36px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    z-index: 10;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+                `;
+                nextBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    currentIndex = (currentIndex + 1) % allImages.length;
+                    fullImg.src = allImages[currentIndex].src;
+                    fullImg.alt = allImages[currentIndex].alt || 'Фото номера';
+                    counter.textContent = `${currentIndex + 1} / ${allImages.length}`;
+                };
 
                 modal.appendChild(closeBtn);
+                modal.appendChild(counter);
+                modal.appendChild(prevBtn);
+                modal.appendChild(nextBtn);
                 modal.appendChild(fullImg);
                 document.body.appendChild(modal);
             };

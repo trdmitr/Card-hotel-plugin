@@ -69,26 +69,37 @@
 }
 
 .carousel-control {
-    position: absolute;
-    top: 50%;
+    position: absolute; 
     transform: translateY(-50%);
     font-size: 24px;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5);
+    color: white !important;
+    left: 9% !important;
+    top: 30% !important;
+    background-color: rgba(0, 0, 0, 0.6) !important;;
     padding: 16px;
     text-decoration: none;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     text-align: center;
     line-height: 40px;
+    z-index: 10;  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    text-decoration: none;
     z-index: 10;
-    left: 2%;
     right: 2%;
+        /* Увеличим touch-зону */
+    padding: 12px;
+    box-sizing: border-box;
+    /* Тень для лучшей видимости */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
-.prev { left: 2%; }
-.next { right: 2%; }
+.prev { left: 75% !important; }
+.next { right: 75% !important; }
 
 .carousel-dots {
     text-align: center;
@@ -148,11 +159,13 @@
         font-size: 1.1em;
     }
     .carousel-control {
-        width: 30px;
-        height: 30px;
-        font-size: 20px;
-        left: 3%;
-        right: 3%;
+
+        width: 56px;
+        height: 56px;
+        font-size: 28px;
+        padding: 16px;
+        left: 5%;
+        right: 5%;
     }
 }
 /* === ГАЛЕРЕЯ НОМЕРА === */

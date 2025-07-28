@@ -38,8 +38,8 @@ class HotelRoomsPlugin {
         <div class="rooms-container" id="roomsContainer">
             <div class="carousel" id="mobileCarousel">
                 <div class="carousel-inner"></div>
-                <a class="carousel-control prev" onclick="changeSlide(-1)">&#10094;</a>
-                <a class="carousel-control next" onclick="changeSlide(1)">&#10095;</a>
+                <a class="carousel-control prev" onclick="changeSlide(-1)">&#10095;</a>
+                <a class="carousel-control next" onclick="changeSlide(1)">&#10094;</a>
                 <div class="carousel-dots"></div>
             </div>
             <div class="rooms-grid" id="roomsGrid"></div>
@@ -78,7 +78,17 @@ class HotelRoomsPlugin {
         global $post;
         return is_a($post, 'WP_Post') && has_shortcode($post->post_content, $shortcode);
     }
-
+//     // === ОБЁРТКА ШОРТКОДА В DIV — ЧЕРЕЗ ФИЛЬТР ===
+// add_filter('the_content', function ($content) {
+//     if (has_shortcode($content, 'room_slider')) {
+//         $content = str_replace(
+//             '[room_slider]',
+//             '<div id="hotel-rooms-wrapper">[room_slider]</div>',
+//             $content
+//         );
+//     }
+//     return $content;
+// });
     // === АДМИН-МЕНЮ (для будущих настроек) ===
     public function add_admin_menu() {
         add_options_page(
