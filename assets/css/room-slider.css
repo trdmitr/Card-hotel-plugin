@@ -32,10 +32,10 @@
     color: #e7cc86;
 }
 .room-card h3 {
-    margin: 0 0 10px;
+    margin: 0 67px 10px;
     color: #e7cc86;
     font-size: 1.4em;
-    border: 1px solid #c3a31f;
+    border: 2px solid #c3a31f;
     border-radius: 1em;
 }
 
@@ -45,6 +45,8 @@
     font-weight: bold;
     color: #e74c3c;
 	background-color: white;
+    margin-right: 15%;
+    margin-left: 15%;
 }
 
 /* Карусель */

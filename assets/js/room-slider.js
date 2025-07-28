@@ -27,7 +27,7 @@ function renderGrid(data) {
             galleryHtml = `
                 <div class="room-gallery">
                     <!-- Основное фото -->
-                    <img src="${firstImage}" alt="${escapeHtml(room.title)}" loading="lazy" class="gallery-main">
+                    <img src="${firstImage}" alt="${escapeHtml(room.title)}" class="gallery-main">
                     <div class="zoom-overlay">🔍</div>
                     <!-- Миниатюры (если есть) -->
                     ${otherImages.length > 0 ? `
@@ -52,6 +52,10 @@ function renderGrid(data) {
             <p class="price"><strong>Стоимость:</strong> ${escapeHtml(room.price)}</p>
         `;
         grid.appendChild(card);
+        const img = card.querySelector('.gallery-main');
+        if (img) {
+            img.loading = "lazy"; // ← так работает надёжнее
+        }
     });
 }
 
@@ -71,11 +75,11 @@ function renderCarousel(data) {
 
             galleryHtml = `
                 <div class="room-gallery">
-                    <img src="${firstImage}" alt="${escapeHtml(room.title)}" loading="lazy" class="gallery-main">
+                    <img src="${firstImage}" alt="${escapeHtml(room.title)}" class="gallery-main">
                     ${otherImages.length > 0 ? `
                     <div class="gallery-thumbs">
                         ${otherImages.map((img, idx) => `
-                            <img src="${img}" alt="Фото ${idx + 2}" loading="lazy"
+                            <img src="${img}" alt="Фото ${idx + 2}" 
                                  onclick="this.parentElement.previousElementSibling.src = '${img}'"
                                  class="thumb">
                         `).join('')}
@@ -96,7 +100,10 @@ function renderCarousel(data) {
             </div>
         `;
         inner.appendChild(slide);
-
+        const img = slide.querySelector('.gallery-main');
+        if (img) {
+            img.loading = "lazy";
+        }
         const dot = document.createElement('span');
         dot.className = index === 0 ? 'dot active' : 'dot';
         dot.onclick = () => currentSlide(index + 1);
