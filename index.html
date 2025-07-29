@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея номеров</title>
+    <link rel="stylesheet" href="assets/css/room-slider.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: #f4f1ea;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #5a3921;
+            margin-bottom: 30px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Галерея номеров</h1>
+
+        <div id="roomsContainer">
+            <div id="roomsGrid"></div>
+
+            <div id="mobileCarousel" style="display: none;">
+                <div class="carousel-inner"></div>
+                <a class="carousel-control prev" onclick="HotelRooms.changeSlide(-1)">&#10094;</a>
+                <a class="carousel-control next" onclick="HotelRooms.changeSlide(1)">&#10095;</a>
+                <div class="carousel-dots"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключаем скрипт -->
+    <script src="assets/js/room-slider-html.js"></script>
+
+    <script>
+        // === Тестовые данные ===
+        const testData = [
+            {
+                "title": "Люкс",
+                "desc": "Просторный номер с видом на море",
+                "number": "№ 7",
+                "count": "1",
+                "price": "8000 руб/сутки",
+                "images": [
+                    "https://sun9-35.userapi.com/s/v1/ig2/bzFJPXkPw1d8caaIpnSC-15Zc65fAwqIbAh-5wZZf-wAkMPpJUjJ_siFPHZ4bc4xvy0BChI0ZW7_VfJ-1lSRvlis.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x319,360x479,480x638,540x718,577x767&from=bu&cs=577x0",
+                    "https://sun9-51.userapi.com/s/v1/ig2/jV_cFl0DLlXT1WyfkiMBGO3iUvHhAmvdQPAGBkCfvq33hZhlNJipNIxeu779hozEtGlCeZzJFWZOYN9eyROHkaW6.jpg?quality=95&as=32x41,48x62,72x92,108x139,160x205,240x308,360x462,480x616,507x651&from=bu&cs=507x0",
+                    "https://sun9-43.userapi.com/s/v1/ig2/L2bMozdiLWpD5t4Yg8Anj3mSxVx5mMq6anp11g1AwLVQL7xHZwj8HnGGIIxlESSt-XobHYKsCpaidQ0VSKW19RK0.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x214,240x321,360x481,480x641,540x721,599x800&from=bu&cs=599x0"
+                ]
+            },
+            {
+                "title": "Семейный",
+                "desc": "Большой номер для всей семьи",
+                "number": "№ 17",
+                "count": "1",
+                "price": "6500 руб/сутки",
+                "images": [
+                    "https://sun9-17.userapi.com/s/v1/ig2/BnGIChdIFlZGSm9stSUlUGH7_nsWsxC30kz3mnSZ8zU06UPo-wEx4iSaEQgQQAZ88gSqiQ7yuTTjU1NrVZ0_g4DN.jpg?quality=95&as=32x57,48x85,72x128,108x192,160x284,240x427,360x640,480x853,540x960,640x1138,720x1280&from=bu&cs=720x0",
+                    "https://sun9-74.userapi.com/s/v1/ig2/GvHKn9vPtJkSGYxNWZb9PHFt_-1Ec7ZWXOYrW0kafGTP_xw0Snvx8ToJ6nQebiRSFvJmiFrvwV_0-jKFiOx_MMSn.jpg?quality=95&as=32x49,48x73,72x110,108x164,160x244,240x365,360x548,461x702&from=bu&cs=461x0"
+                ]
+            }
+        ];
+
+        // === Инициализация ===
+        HotelRooms.collectAllImages(testData);
+        HotelRooms.renderGrid(testData);
+        HotelRooms.renderCarousel(testData);
+        HotelRooms.showSlides(1);
+    </script>
+</body>
+</html>

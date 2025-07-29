@@ -6,9 +6,9 @@
     "count": "1",
     "price": "6500 руб/сутки",
 	"images": [
-    "/wp-content/plugins/hotel-rooms/assets/photos/Семейный-4.webp",
-    "/wp-content/plugins/hotel-rooms/assets/photos/Семейный-5.webp",
-    "/wp-content/plugins/hotel-rooms/assets/photos/Семейный-8.webp"
+    "/assets/photos/Семейный-4.webp",
+    "/assets/photos/Семейный-5.webp",
+    "/assets/photos/Семейный-8.webp"
   ]
   },
   {
@@ -18,9 +18,9 @@
     "count": "1",
     "price": "5000 руб/сутки",
 	"images": [
-    "/wp-content/plugins/hotel-rooms/assets/photos/Люкс-2.webp",
-    "/wp-content/plugins/hotel-rooms/assets/photos/Люкс-4.webp",
-    "/wp-content/plugins/hotel-rooms/assets/photos/Люкс-5.webp"
+    "/assets/photos/Люкс-2.webp",
+    "/assets/photos/Люкс-4.webp",
+    "/assets/photos/Люкс-5.webp"
   ]
   },
   {
