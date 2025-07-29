@@ -239,6 +239,11 @@
     background: #ccc;
     border-radius: 3px;
 }
+.lightbox-title {
+    color: white;
+    font-size: 18px;
+    margin-top: 5px;
+}
 .room-gallery {
     position: relative;
     border-radius: 8px;
